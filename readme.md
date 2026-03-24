@@ -47,12 +47,8 @@ git clone <your-repo-url>
 cd vgc_database
 pip install -r requirements.txt
 
-2. Initialize the database (Bronze Layer):
-```bash
 duckdb vgc_project.duckdb -init init_bronze.sql -batch
 
-3. Run the dbt transformations:
-```bash
 cd vgc_dbt
 dbt deps
 dbt build
