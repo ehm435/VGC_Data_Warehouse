@@ -3,6 +3,7 @@
 This project is an end-to-end analytical pipeline designed to extract, model, and analyze massive usage data from competitive Pokémon VGC (Smogon Chaos format logs). 
 
 As a former VGC player, I know the "business logic" and the metrics that actually matter when building competitive teams. The goal of this project isn't just to write basic queries, but to apply **Data Engineering** to create an engine capable of discovering complex synergies and meta trends in an automated way.
+
 ---
 
 ## 🏗️ Architecture & Data Modeling (The *How*)
@@ -10,9 +11,10 @@ As a former VGC player, I know the "business logic" and the metrics that actuall
 The project combines the **Medallion Architecture** with classic dimensional modeling (**Kimball**), ensuring the data is ready to be consumed by any BI tool:
 
 1. **Bronze Layer (Raw):** Raw tabular data extracted and flattened via Python from deeply nested JSONs.
-2. **Silver Layer (Core/Staging):** Cleaning and standardization applying the DRY principle via **Jinja Macros**. The Star Schema is built here.
-   * *Key decision:* Resolving *Many-to-Many* relationships (like the Tera Type mechanic) using **Bridge Tables**, avoiding record duplication and tight coupling in the Fact Table (`fct_usage`).
-3. **Gold / Platinum Layer (Data Marts):** Complex analytical models oriented towards business value.
+2. **Silver Layer (Core/Staging):** Cleaning, standardization applying the DRY principle via **Jinja Macros**, and maintaining a normalized relational model.
+   * *Key decision:* Resolving *Many-to-Many* relationships (like the Tera Type mechanic) using **Bridge Tables**, paving the way without duplicating records.
+3. **Gold / Platinum Layer (Data Marts):** Construction of the dimensional model (**Star Schema**) and complex analytical models oriented towards business value.
+   * The main Fact Table (`fct_usage`) is built here, cleanly decoupled thanks to the bridge tables from the previous layer.
    * `mart_synergy_cores`: Uses directional *Self-Joins* (basic graph theory) to identify *3-Cliques* (cores of 3 Pokémon with high mathematical synergy).
    * `mart_niche_techs`: Transforms horizontal data into *Tall Data* format via `UNION ALL` to feed distribution charts of "Anti-Meta" strategies.
 
