@@ -45,7 +45,7 @@ To test the data modeling, the repository includes a sample dataset in the `data
 
 **1. Clone the repository and set up the environment:**
 ```bash
-git clone <your-repo-url>
+git clone (https://github.com/ehm435/VGC_Data_Warehouse)
 cd vgc_database
 pip install -r requirements.txt
 
