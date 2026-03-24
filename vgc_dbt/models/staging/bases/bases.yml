@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: base_vgc_meta
+    columns:
+      - name: meta_id
+        tests:
+          - unique
+          - not_null
+
+  - name: base_vgc_moves
+    columns:
+      - name: move_id
+        tests:
+          - unique
+          - not_null
+      - name: meta_id
+        tests:
+          - not_null
+
+  - name: base_vgc_items
+    columns:
+      - name: item_id
+        tests:
+          - unique
+          - not_null
+      - name: meta_id
+        tests:
+          - not_null
+  - name: base_vgc_abilities
+    columns:
+      - name: ability_id
+        tests:
+          - unique
+          - not_null
+      - name: meta_id
+        tests:
+          - not_null
+  - name: base_vgc_spreads
+    columns:
+      - name: spread_id
+        tests:
+          - unique
+          - not_null
+      - name: meta_id
+        tests:
+          - not_null
+  - name: base_vgc_teammates
+    columns:
+      - name: teammate_id
+        tests:
+          - unique
+          - not_null
+      - name: meta_id
+        tests:
+          - not_null

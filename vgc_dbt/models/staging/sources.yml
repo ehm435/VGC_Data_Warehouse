@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: vgc_raw
+    description: "Datos crudos extraídos del JSON de Smogon y cargados en DuckDB"
+    schema: bronze
+    tables:
+      - name: vgc_meta
+        description: "Metadatos base de cada Pokémon (usage y raw count)"
+      - name: vgc_spreads
+        description: "Distribución de EVs y Naturalezas"
+      - name: vgc_moves
+        description: "Movimientos utilizados por cada Pokémon"
+      - name: vgc_items
+        description: "Objetos equipados"
+      - name: vgc_abilities
+        description: "Habilidades utilizadas"
+      - name: vgc_teammates
+        description: "Sinergias y compañeros de equipo"
+      - name: vgc_teratypes
+        description: "Tipo de tera de cada pokemon"

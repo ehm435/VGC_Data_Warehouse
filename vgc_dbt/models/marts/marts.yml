@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: fct_usage
+    description: "Central fact table storing the global usage statistics for each Pokemon in a specific competitive format and month."
+    columns:
+      - name: meta_id
+        description: "Surrogate primary key linking Pokemon, Date, and Regulation."
+        tests:
+          - unique
+          - not_null
+      - name: usage_percent
+        description: "Percentage of teams using this Pokemon (0-100)."
+        tests:
+          - not_null
+      - name: pokemon_name
+        description: "Name of the Pokemon. Must exist in dim_pokemon."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_pokemon')
+              field: pokemon_name
+      - name: date_id
+        description: "Format date. Must exist in dim_date."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_id
+
+  - name: mart_synergy_cores
+    description: "Data Mart identifying the best 3-Pokemon defensive/offensive cores using graph theory and bidirectional edge weighting."
+    columns:
+      - name: core_team
+        description: "String concatenation of the 3 Pokemon forming the synergistic core."
+        tests:
+          - not_null
+      - name: synergy_score
+        description: "Total sum of the bidirectional synergy weights between the 3 Pokemon."
+        tests:
+          - not_null
+
+  - name: mart_niche_techs
+    description: "Anti-meta radar highlighting items, moves, and tera types with usage between 2% and 15% on high-usage Pokemon."
+    columns:
+      - name: pokemon_name
+        description: "Name of the base Pokemon (filtered for high global usage)."
+      - name: tech_category
+        description: "Category of the niche strategy (Item, Move, or Tera Type)."
+      - name: tech_usage_percent
+        description: "Usage percentage of this specific niche tech."
