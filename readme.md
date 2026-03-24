@@ -43,9 +43,9 @@ DuckDB offers the same analytical power at zero cost, making it the ideal choice
 
 To test the data modeling, the repository includes a sample dataset in the `data/bronze/` folder corresponding to a specific tournament regulation.
 
-**1. Clone the repository and set up the environment:**
+**Set up the environment:**
 ```bash
-git clone (https://github.com/ehm435/VGC_Data_Warehouse)
+git clone https://github.com/ehm435/VGC_Data_Warehouse
 cd vgc_database
 pip install -r requirements.txt
 
