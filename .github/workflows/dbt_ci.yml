@@ -26,20 +26,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Setup dbt profile
-        run: |
-          mkdir -p ~/.dbt
-          cat << EOF > ~/.dbt/profiles.yml
-          vgc_dbt:
-            outputs:
-              dev:
-                type: duckdb
-                path: :memory:
-            target: dev
-          EOF
-
       - name: Compile dbt models
         working-directory: ./vgc_dbt
         run: |
-          dbt deps
-          dbt compile
+          mkdir -p ./ci_profile
+          echo "vgc_dbt:
+            target: dev
+            outputs:
+              dev:
+                type: duckdb
+                path: ':memory:'" > ./ci_profile/profiles.yml
+          
+          dbt deps --profiles-dir ./ci_profile
+          dbt compile --profiles-dir ./ci_profile
