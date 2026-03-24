@@ -31,3 +31,21 @@ jobs:
         run: |
           dbt deps
           dbt compile
+
+      - name: Setup dbt profile
+        run: |
+          mkdir -p ~/.dbt
+          cat << EOF > ~/.dbt/profiles.yml
+          vgc_dbt:
+            outputs:
+              dev:
+                type: duckdb
+                path: :memory:
+            target: dev
+          EOF
+
+      - name: Compile dbt models
+        working-directory: ./vgc_dbt
+        run: |
+          dbt deps
+          dbt compile
